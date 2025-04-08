@@ -17,32 +17,32 @@ def calculate_gains(degree):
     tan_40 = math.tan(math.radians(40)) # Half of the angle of surround and front
     tan_70 = math.tan(math.radians(70)) # Half of the angle of surrounds
 
-    if degree == 0:
+    if degree == 0: # When the sound come from the center front
         gains[2] = 1
-    elif - 30 <= degree <= 30 and degree != 0:
+    elif - 30 <= degree <= 30 and degree != 0: # When the sound is between the left front and the right front. In addition, the sound is not from the center
         gain_1 = 0.5 * (1 + math.tan(degree_rad) / tan_30)
         gain_2 = 1 - gain_1
         gains[0] = gain_1/(gain_1**2+gain_2**2)**0.5
         gains[1] = gain_2/(gain_1**2+gain_2**2)**0.5
-    elif 30 < degree <= 110:
+    elif 30 < degree <= 110: # Between the left front and left surround
         degree = degree - (30 + 40) # Redefine the involved angles
         gain_1 = 0.5 * (1 + math.tan(degree_rad) / tan_40)
         gain_2 = 1 - gain_1
         gains[0] = gain_1/(gain_1**2+gain_2**2)**0.5
         gains[4] = gain_2/(gain_1**2+gain_2**2)**0.5
-    elif -110 < degree <= -30:
+    elif -110 < degree <= -30: # Between the right front and the right surround
         degree = degree - (-30 - 40) # Redefine the involved angles
         gain_1 = 0.5 * (1 + math.tan(degree_rad) / tan_40)
         gain_2 = 1 - gain_1
         gains[1] = gain_1/(gain_1**2+gain_2**2)**0.5
         gains[5] = gain_2/(gain_1**2+gain_2**2)**0.5
-    elif 110 < degree <= 180:
+    elif 110 < degree <= 180: # The left rear
         degree = degree - 180 # Redefine the involved angles
         gain_1 = 0.5 * (1 + math.tan(degree_rad) / tan_70)
         gain_2 = 1 - gain_1
         gains[4] = gain_1/(gain_1**2+gain_2**2)**0.5
         gains[5] = gain_2/(gain_1**2+gain_2**2)**0.5
-    elif  -180 <= degree < -110:
+    elif  -180 <= degree < -110: # The right rear
         degree = degree + 180 # Redefine the involved angles
         gain_1 = 0.5 * (1 + math.tan(degree_rad) / tan_70)
         gain_2 = 1 - gain_1
